@@ -4,7 +4,7 @@ from django.conf import settings
 
 # Create your views here.
 @api_view(['GET'])
-def company_details(reques):
+def company_details(request):
     details = {'company_name': settings.COMPANY_NAME
                ,'slogan': settings.SLOGAN
                ,'contacts':settings.CONTACTS}

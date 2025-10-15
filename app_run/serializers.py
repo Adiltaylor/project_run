@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     type=serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['id','username','last_name','first_name','type']
+        fields = ['id','username','last_name','first_name','type','date_joined']
 
     def get_type(self,obj):
         if obj.is_staff == True:

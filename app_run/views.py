@@ -24,7 +24,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(is_superuser=False)
         user_type = self.request.query_params.get('type')
 
         if user_type == 'coach':

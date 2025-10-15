@@ -33,7 +33,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.filter(is_staff=False)
         elif user_type in (None,'null','','None'):
             queryset= queryset
-            print(user_type)
         else:
             queryset = queryset.none()
         return queryset

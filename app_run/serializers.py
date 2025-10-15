@@ -9,6 +9,15 @@ class RunSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
+    type=serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['type','id','username','last_name','first_name']
+        fields = ['id','username','last_name','first_name','type']
+
+    def get_type(self,obj):
+        if obj.is_staff == True:
+            type='coach'
+        elif obj.is_staff == False:
+            type = 'athlete'
+
+        return type

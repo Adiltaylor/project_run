@@ -3,7 +3,6 @@ from rest_framework import serializers
 from app_run.models import Run
 
 class UserSerializerRun(serializers.ModelSerializer):
-    type=serializers.SerializerMethodField()
     class Meta:
         model = User
         fields = ['id','username','last_name','first_name']

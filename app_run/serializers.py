@@ -3,11 +3,6 @@ from rest_framework import serializers
 from app_run.models import Run
 
 
-class RunSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Run
-        fields = '__all__'
-
 class UserSerializer(serializers.ModelSerializer):
     type=serializers.SerializerMethodField()
     class Meta:
@@ -19,5 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
             type='coach'
         elif obj.is_staff == False:
             type = 'athlete'
-
         return type
+
+class RunSerializer(serializers.ModelSerializer):
+    athlete = UserSerializer(read_only=True)
+    class Meta:
+        model = Run
+        fields = '__all__'
+

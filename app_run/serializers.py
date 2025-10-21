@@ -2,10 +2,6 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from app_run.models import Run
 
-class UserSerializerRun(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id','username','last_name','first_name']
 
 class UserSerializer(serializers.ModelSerializer):
     type=serializers.SerializerMethodField()
@@ -20,9 +16,15 @@ class UserSerializer(serializers.ModelSerializer):
             type = 'athlete'
         return type
 
-class RunSerializer(serializers.ModelSerializer):
-    athlete = UserSerializerRun(read_only=True)
+
+class UserSerializerRun(serializers.ModelSerializer):
     class Meta:
-        model = Run
+        model = User
         fields = ['id','username','last_name','first_name']
 
+
+class RunSerializer(serializers.ModelSerializer):
+    athlete_data = UserSerializerRun(source="athlete",read_only=True)
+    class Meta:
+        model = Run
+        fields = ['id','created_at','comment','athlete_data']

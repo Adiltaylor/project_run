@@ -5,6 +5,7 @@ from django.conf import settings
 from rest_framework import viewsets
 from .models import Run
 from .serializers import RunSerializer, UserSerializer
+from rest_framework import filters
 
 
 # Create your views here.
@@ -22,6 +23,8 @@ class RunViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.filter(is_superuser=False)
     serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]  # Подключаем SearchFilter здесь
+    search_fields = ['first_name','last_name']  # Указываем поля по которым будет вестись поиск
 
     def get_queryset(self):
         queryset = super().get_queryset()

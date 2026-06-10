@@ -25,9 +25,9 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         qs = self.queryset
-        is_staff = self.request.query_params.get('is_staff', None)
-        if is_staff:
-            qs = qs.filter(is_staff=is_staff)
+        type = self.request.query_params.get('type', None)
+        if type:
+            qs = qs.filter(type=type)
         return qs
 
 

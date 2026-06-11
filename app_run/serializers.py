@@ -10,15 +10,3 @@ class UserSerializer(serializers.ModelSerializer):
         if obj.is_staff == True:
             return 'coach'
         else: return 'athlete'
-class UserRunSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id','username','last_name']
-
-class RunSerializer(serializers.ModelSerializer):
-    athlete_data=UserRunSerializer(source="athlete",read_only=True)
-    class Meta:
-        model = Run
-        fields = ['id','created_at','athlete_data']
-
-

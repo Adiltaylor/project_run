@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.conf import settings
 
 from app_run.models import Run
-from app_run.serializers import  UserSerializer
+from app_run.serializers import RunSerializer, UserSerializer
 
 
 @api_view(['GET'])
@@ -14,6 +14,10 @@ def company_details(request):
                'slogan': settings.SLOGAN,
                'contacts': settings.CONTACTS}
     return Response(details)
+
+class RunViewSet(viewsets.ModelViewSet):
+    queryset = Run.objects.select_related("athlete").all()
+    serializer_class = RunSerializer
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.filter(is_superuser=False)

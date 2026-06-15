@@ -17,12 +17,6 @@ class UserRunSerializer(serializers.ModelSerializer):
 
 class RunSerializer(serializers.ModelSerializer):
     athlete_data=UserRunSerializer(source="athlete",read_only=True)
-    athlete_id = serializers.PrimaryKeyRelatedField(  # для POST
-        queryset=User.objects.all(),
-        source='athlete',
-        write_only=True
-    )
-
     class Meta:
         model = Run
         fields = ['id','created_at','comment','athlete_data','athlete_id']
